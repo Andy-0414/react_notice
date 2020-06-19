@@ -30,7 +30,7 @@ class PostComments extends React.Component<{ commentList: IComment[] }, { isShow
 		let { isShowComments } = this.state;
 		return (
 			<PostCommentsWrapper>
-				<ShowButton onClick={this.handleToggleShowComments}>show</ShowButton>
+				<ShowButton onClick={this.handleToggleShowComments}>댓글 보기</ShowButton>
 				{isShowComments && <CommentList>{this.getComments()}</CommentList>}
 			</PostCommentsWrapper>
 		);

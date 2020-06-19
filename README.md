@@ -3,6 +3,8 @@
 
 # TODO
 -   React 문법 익히기
+
+## 6.19
 -   Redux 사용하기
 -   axios 사용하기
 -   heroku에 업로드하기

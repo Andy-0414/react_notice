@@ -14,7 +14,10 @@ export interface IComment {
 class PostComment extends React.Component<{ item: IComment }> {
 	render() {
 		let { item } = this.props;
-		return <li>{item.content}</li>;
+		return <CommentWrapper>{item.content}</CommentWrapper>;
 	}
 }
 export default PostComment;
+
+const CommentWrapper = styled.li`
+`
