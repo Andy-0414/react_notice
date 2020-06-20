@@ -21,11 +21,12 @@ export default PostItem;
 const PostItemWrap = styled.article`
 	padding: 20px;
 
-	margin: 10px;
+	margin: 20px;
 
 	border-radius: 10px;
 
 	box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+	background-color: white;
 `;
 
 const Title = styled.h2`

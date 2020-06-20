@@ -1,13 +1,13 @@
 import Axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
-import { GET_POST_LIST, getPostListClear, getPostListError } from "../modules/Post";
+import { GET_POST_LIST, getPostListClear, postError } from "../modules/Post";
 
 export function* getPostListSaga() {
-	const { data } = yield Axios.get(`http://localhost:3030/post`);
 	try {
+		const { data } = yield Axios.get(`http://localhost:3030/post`);
 		yield put(getPostListClear(data));
-	} catch {
-		yield put(getPostListError());
+	} catch (err) {
+		yield put(postError(err));
 	}
 }
 

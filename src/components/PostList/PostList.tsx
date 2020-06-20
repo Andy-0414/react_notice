@@ -23,7 +23,7 @@ class PostList extends React.Component<Props, States> {
 		list: [] as IPost[],
 	};
 	handleReloadPost = () => {
-		let { dispatchGetPostList } = this.props;
+		const { dispatchGetPostList } = this.props;
 		dispatchGetPostList();
 	};
 	getPostItems() {
@@ -61,7 +61,21 @@ const PropListWrap = styled.section`
 `;
 
 const ReloadButton = styled.button`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+	cursor: pointer;
+	border: none;
+	outline: none;
+	background: none;
+
+	padding: 10px;
+
+	margin: 20px;
+
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+	background-color: white;
+
+	transition: 0.2s;
+
+	&:hover {
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+	}
 `;
