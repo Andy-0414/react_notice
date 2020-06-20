@@ -1,15 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import PostComments from "./PostComments/PostComments";
+import IPost from "../../../schema/Post";
 
-export interface IPost {
-	_id: string;
-	owner: string;
-	title: string;
-	content: string;
-	lastUpdateTime?: Date;
-	createTime?: Date;
-}
 
 class PostItem extends React.Component<{ item: IPost }, {}> {
 	render() {

@@ -37,7 +37,6 @@ class PostComments extends React.Component<{ commentList: IComment[] }, { isShow
 	}
 }
 export default PostComments;
-
 const PostCommentsWrapper = styled.div``;
 const CommentList = styled.ul`
 	list-style: none;

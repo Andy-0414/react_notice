@@ -1,15 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { IPost } from "../../PostItem";
-
-export interface IComment {
-	_id: string;
-	post?: IPost;
-	owner: Object;
-	content: string;
-	lastUpdateTime?: Date;
-	createTime?: Date;
-}
+import IComment from "../../../../../schema/Comment";
 
 class PostComment extends React.Component<{ item: IComment }> {
 	render() {
@@ -19,5 +10,4 @@ class PostComment extends React.Component<{ item: IComment }> {
 }
 export default PostComment;
 
-const CommentWrapper = styled.li`
-`
+const CommentWrapper = styled.li``;
