@@ -3,12 +3,13 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { RootState } from "../../store";
-import { IUserDefaultLogin } from "../../schema/User";
+import IUser, { IUserDefaultLogin } from "../../schema/User";
 import { register, login } from "../../store/modules/User";
 
 interface Props {
 	dispatchRegister(loginData: IUserDefaultLogin): void;
 	dispatchLogin(loginData: IUserDefaultLogin): void;
+	user: IUser | null;
 }
 interface States {
 	id: string;
@@ -18,34 +19,37 @@ class Profile extends React.Component<Props, States> {
 	state = {
 		id: "",
 		password: "",
-	};
+	} as States;
 	render() {
-		const { dispatchRegister, dispatchLogin } = this.props;
+		const { dispatchRegister, dispatchLogin, user } = this.props;
 		let { id, password } = this.state;
-		return (
-			<ProfileWrap>
-				<div>
-					<Input placeholder="id" onChange={this.handleIDInput}></Input>
-					<Input placeholder="password" onChange={this.handlePasswordInput}></Input>
-				</div>
-				<ActionWrap>
-					<Button
-						onClick={() => {
-							dispatchLogin({ userID: id, password });
-						}}
-					>
-						로그인
-					</Button>
-					<Button
-						onClick={() => {
-							dispatchRegister({ userID: id, password });
-						}}
-					>
-						회원가입
-					</Button>
-				</ActionWrap>
-			</ProfileWrap>
-		);
+		console.log(user);
+		if (user?.userID) return <ProfileWrap>{user!.userID}님</ProfileWrap>;
+		else
+			return (
+				<ProfileWrap>
+					<div>
+						<Input placeholder="id" onChange={this.handleIDInput}></Input>
+						<Input placeholder="password" onChange={this.handlePasswordInput}></Input>
+					</div>
+					<ActionWrap>
+						<Button
+							onClick={() => {
+								dispatchLogin({ userID: id, password });
+							}}
+						>
+							로그인
+						</Button>
+						<Button
+							onClick={() => {
+								dispatchRegister({ userID: id, password });
+							}}
+						>
+							회원가입
+						</Button>
+					</ActionWrap>
+				</ProfileWrap>
+			);
 	}
 	handleIDInput = (e: React.ChangeEvent) => {
 		let { value } = e.target as HTMLInputElement;
@@ -62,7 +66,7 @@ class Profile extends React.Component<Props, States> {
 }
 
 const mapStateToProps = (state: RootState) => {
-	return { list: state.Post.postList };
+	return { user: state.User.loginData };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return { dispatchRegister: (loginData: IUserDefaultLogin) => dispatch(register(loginData)), dispatchLogin: (loginData: IUserDefaultLogin) => dispatch(login(loginData)) };

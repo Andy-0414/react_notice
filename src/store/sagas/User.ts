@@ -19,8 +19,17 @@ export function* watchRegister() {
 export function* loginSaga(action: UserAction) {
 	try {
 		const { data } = yield Axios.post(`http://localhost:3030/auth/user/login`, action.payload);
-		console.log(data);
-		yield put(loginClear(data.data));
+		const token = data.data;
+		const { data: userData } = yield Axios.post(
+			`http://localhost:3030/auth/user/my`,
+			{},
+			{
+				headers: {
+					Authorization: token,
+				},
+			}
+		);
+		yield put(loginClear(token, userData.data));
 	} catch (err) {
 		yield put(userError(err));
 	}

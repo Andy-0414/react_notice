@@ -10,24 +10,19 @@ import PostCreate from "./PostCreate/PostCreate";
 
 interface Props {
 	dispatchGetPostList(): void;
-}
-interface States {
 	list: IPost[];
 }
-class PostList extends React.Component<Props, States> {
+class PostList extends React.Component<Props> {
 	constructor(props: Props) {
 		super(props);
 		this.handleReloadPost();
 	}
-	state = {
-		list: [] as IPost[],
-	};
 	handleReloadPost = () => {
 		const { dispatchGetPostList } = this.props;
 		dispatchGetPostList();
 	};
 	getPostItems() {
-		let { list } = this.state;
+		let { list } = this.props;
 		return list.map((item: IPost) => <PostItem item={item} key={item._id}></PostItem>);
 	}
 	render() {

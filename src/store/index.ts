@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { watchGetPostList } from "./sagas/Post";
+import { watchGetPostList, watchCreatePost, watchDeletePost } from "./sagas/Post";
 import { all } from "redux-saga/effects";
 import Post from "./modules/Post";
 import User from "./modules/User";
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-	yield all([watchGetPostList(), watchRegister(), watchLogin()]);
+	yield all([watchGetPostList(), watchRegister(), watchLogin(), watchCreatePost(), watchDeletePost()]);
 }
 
 export type RootState = ReturnType<typeof rootReducer>;

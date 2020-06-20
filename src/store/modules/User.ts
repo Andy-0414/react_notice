@@ -1,4 +1,4 @@
-import { IUserDefaultLogin } from "../../schema/User";
+import IUser, { IUserDefaultLogin } from "../../schema/User";
 
 export const REGISTER = "User/REGISTER" as const;
 export const LOGIN = "User/LOGIN" as const;
@@ -21,9 +21,9 @@ export const registerClear = (result: boolean) => ({
 	type: REGISTER_CLEAR,
 	payload: result,
 });
-export const loginClear = (token: string) => ({
+export const loginClear = (token: string, userData: IUser) => ({
 	type: LOGIN_CLEAR,
-	payload: token,
+	payload: { token, userData },
 });
 
 export const userError = (err: Error) => ({
@@ -47,7 +47,8 @@ function User(state: UserState = initialState, action: UserAction) {
 		case LOGIN_CLEAR:
 			return {
 				...state,
-				token: action.payload,
+				token: action.payload.token,
+				loginData: action.payload.userData,
 			};
 		default:
 			return state;

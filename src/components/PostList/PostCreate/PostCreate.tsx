@@ -1,20 +1,68 @@
 import React from "react";
 import styled from "styled-components";
+import { createPost } from "../../../store/modules/Post";
+import IPost from "../../../schema/Post";
+import { Dispatch } from "redux";
+import { connect } from "react-redux";
+import { RootState } from "../../../store";
 
-class PostCreate extends React.Component {
+interface Props {
+	dispatchPostCreate(token: string, post: IPost): void;
+	token: string;
+}
+interface States {
+	title: string;
+	content: string;
+}
+
+class PostCreate extends React.Component<Props, States> {
+	state = {
+		title: "",
+		content: "",
+	} as States;
 	render() {
+		const { dispatchPostCreate, token } = this.props;
+		const { title, content } = this.state;
+
 		return (
 			<PostCreateWrap>
-				<TitleInput placeholder="제목"></TitleInput>
-				<ContentInput placeholder="내용"></ContentInput>
+				<TitleInput placeholder="제목" onChange={this.handleTitleInput}></TitleInput>
+				<ContentInput placeholder="내용" onChange={this.handleContentInput}></ContentInput>
 				<ActionWrap>
-					<CreateButton>글 쓰기</CreateButton>
+					<CreateButton
+						onClick={() => {
+							dispatchPostCreate(token, { title, content });
+						}}
+					>
+						글 쓰기
+					</CreateButton>
 				</ActionWrap>
 			</PostCreateWrap>
 		);
 	}
+	handleTitleInput = (e: React.ChangeEvent) => {
+		let { value } = e.target as HTMLInputElement;
+		this.setState({
+			title: value,
+		});
+	};
+	handleContentInput = (e: React.ChangeEvent) => {
+		let { value } = e.target as HTMLInputElement;
+		this.setState({
+			content: value,
+		});
+	};
 }
-export default PostCreate;
+
+const mapStateToProps = (state: RootState) => {
+	const { token } = state.User;
+	return { token };
+};
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return { dispatchPostCreate: (token: string, post: IPost) => dispatch(createPost(token, post)) };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostCreate);
 
 const PostCreateWrap = styled.div`
 	padding: 20px;
