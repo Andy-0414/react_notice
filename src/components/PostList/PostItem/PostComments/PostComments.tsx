@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import PostComment, { IComment } from "./PostComment/PostComment";
+import PostComment from "./PostComment/PostComment";
+import IComment from "../../../../schema/Comment";
 
 class PostComments extends React.Component<{ commentList: IComment[] }, { isShowComments: boolean }> {
 	state = {

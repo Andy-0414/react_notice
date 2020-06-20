@@ -1,9 +1,15 @@
 import { combineReducers } from "redux";
-import post from "./Post";
+import { watchGetPostList } from "./sagas/Post";
+import { all } from "redux-saga/effects";
+import Post from "./modules/Post";
+
 const rootReducer = combineReducers({
-	post,
+	Post,
 });
 
-export default rootReducer;
+export function* rootSaga() {
+	yield all([watchGetPostList()]);
+}
 
 export type RootState = ReturnType<typeof rootReducer>;
+export default rootReducer;

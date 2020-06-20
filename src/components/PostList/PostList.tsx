@@ -1,21 +1,53 @@
 import React from "react";
 import styled from "styled-components";
-import PostItem, { IPost } from "./PostItem/PostItem";
+import PostItem from "./PostItem/PostItem";
+import IPost from "../../schema/Post";
+import { connect } from "react-redux";
+import { getPostList } from "../../store/modules/Post";
+import { RootState } from "../../store";
+import { Dispatch } from "redux";
+import PostCreate from "./PostCreate/PostCreate";
 
-class PostList extends React.Component {
+interface Props {
+	dispatchGetPostList(): void;
+}
+interface States {
+	list: IPost[];
+}
+class PostList extends React.Component<Props, States> {
+	constructor(props: Props) {
+		super(props);
+		this.handleReloadPost();
+	}
+	state = {
+		list: [] as IPost[],
+	};
+	handleReloadPost = () => {
+		let { dispatchGetPostList } = this.props;
+		dispatchGetPostList();
+	};
 	getPostItems() {
-		// TODO: Redux 연결 (임시값)
-		let list: IPost[] = [
-			{ _id: "1", owner: "o1", title: "Hello World", content: "Hello React" },
-			{ _id: "2", owner: "o2", title: "Hello World2", content: "Hello React2" },
-		];
-		return list.map((item) => <PostItem item={item} key={item._id}></PostItem>);
+		let { list } = this.state;
+		return list.map((item: IPost) => <PostItem item={item} key={item._id}></PostItem>);
 	}
 	render() {
-		return <PropListWrap>{this.getPostItems()}</PropListWrap>;
+		return (
+			<PropListWrap>
+				<ReloadButton onClick={this.handleReloadPost}>새로고침</ReloadButton>
+				<PostCreate></PostCreate>
+				{this.getPostItems()}
+			</PropListWrap>
+		);
 	}
 }
-export default PostList;
+
+const mapStateToProps = (state: RootState) => {
+	return { list: state.Post.postList };
+};
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return { dispatchGetPostList: () => dispatch(getPostList()) };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(PostList);
 
 const PropListWrap = styled.section`
 	width: 100%;
@@ -24,6 +56,12 @@ const PropListWrap = styled.section`
 
 	overflow-y: scroll;
 
+	display: flex;
+	flex-direction: column;
+`;
+
+const ReloadButton = styled.button`
+	width: 100%;
 	display: flex;
 	flex-direction: column;
 `;
