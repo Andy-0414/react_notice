@@ -4,8 +4,6 @@
 
 # TODO
 
--   React 문법 익히기
--   Redux 사용하기 ( + Redux Saga )
--   로그인/회원가입
--   글쓰기
+-   글 삭제 연결하기
+-   에러 시 alert 띄우기
 -   heroku에 업로드하기
