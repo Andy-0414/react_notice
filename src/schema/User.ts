@@ -3,6 +3,7 @@ export interface IUserDefaultLogin {
 	password: string;
 }
 export default interface IUser extends IUserDefaultLogin {
+	_id?: string;
 	loginType?: string;
 	username?: string;
 	email?: string;

@@ -11,6 +11,7 @@ import PostCreate from "./PostCreate/PostCreate";
 interface Props {
 	dispatchGetPostList(): void;
 	list: IPost[];
+	token: string;
 }
 class PostList extends React.Component<Props> {
 	constructor(props: Props) {
@@ -23,13 +24,16 @@ class PostList extends React.Component<Props> {
 	};
 	getPostItems() {
 		let { list } = this.props;
+		list.reverse();
+		console.log(list)
 		return list.map((item: IPost) => <PostItem item={item} key={item._id}></PostItem>);
 	}
 	render() {
+		let { token } = this.props;
 		return (
 			<PropListWrap>
 				<ReloadButton onClick={this.handleReloadPost}>새로고침</ReloadButton>
-				<PostCreate></PostCreate>
+				{token && <PostCreate></PostCreate>}
 				{this.getPostItems()}
 			</PropListWrap>
 		);
@@ -37,7 +41,9 @@ class PostList extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: RootState) => {
-	return { list: state.Post.postList };
+	const { postList } = state.Post;
+	const { token } = state.User;
+	return { list: postList, token };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
 	return { dispatchGetPostList: () => dispatch(getPostList()) };

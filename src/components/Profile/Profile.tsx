@@ -29,8 +29,8 @@ class Profile extends React.Component<Props, States> {
 			return (
 				<ProfileWrap>
 					<div>
-						<Input placeholder="id" onChange={this.handleIDInput}></Input>
-						<Input placeholder="password" onChange={this.handlePasswordInput}></Input>
+						<Input placeholder="id" type="text" onChange={this.handleIDInput}></Input>
+						<Input placeholder="password" type="password" onChange={this.handlePasswordInput}></Input>
 					</div>
 					<ActionWrap>
 						<Button

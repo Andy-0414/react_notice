@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
-import { GET_POST_LIST, getPostListClear, createPostClear, deletePostClear, postError, DELETE_POST, CREATE_POST, PostAction, createPost, deletePost } from "../modules/Post";
+import { GET_POST_LIST, getPostListClear, createPostClear, deletePostClear, postError, DELETE_POST, CREATE_POST, PostAction, createPost, deletePost, getPostList } from "../modules/Post";
 import IPost from "../../schema/Post";
 
 export function* getPostListSaga() {
@@ -24,6 +24,7 @@ export function* createPostSaga(action: PostAction) {
 				Authorization: token,
 			},
 		});
+		yield put(getPostList());
 		yield put(createPostClear());
 	} catch (err) {
 		yield put(postError(err));
@@ -42,6 +43,7 @@ export function* deletePostSaga(action: PostAction) {
 				Authorization: token,
 			},
 		});
+		yield put(getPostList());
 		yield put(deletePostClear());
 	} catch (err) {
 		yield put(postError(err));
