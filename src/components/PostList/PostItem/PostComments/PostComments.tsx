@@ -3,31 +3,50 @@ import styled from "styled-components";
 import PostComment from "./PostComment/PostComment";
 import IComment from "../../../../schema/Comment";
 import CommentCreate from "./CommentCreate/CommentCreate";
+import IPost from "../../../../schema/Post";
+import Axios from "axios";
 
-class PostComments extends React.Component<{ commentList: IComment[] }, { isShowComments: boolean }> {
+interface States {
+	isShowComments: boolean;
+	commentList: IComment[];
+}
+class PostComments extends React.Component<{ post: IPost }, States> {
 	state = {
 		isShowComments: false,
-	};
+		commentList: [],
+	} as States;
 	getComments() {
 		// TODO: Redux 연동 (임시값)
-		let list: IComment[] = [];
+		let { commentList } = this.state;
 
-		return list.map((item) => <PostComment item={item} key={item._id}></PostComment>);
+		return commentList.map((item) => <PostComment item={item} key={item._id}></PostComment>);
 	}
 
-	handleToggleShowComments = () => {
+	handleToggleShowComments = async () => {
 		let { isShowComments } = this.state;
+		if (!isShowComments) {
+			await this.handleCommentReload();
+		}
 		this.setState({
 			isShowComments: !isShowComments,
 		});
 	};
-
+	handleCommentReload = async () => {
+		let { commentList } = this.state;
+		let { post } = this.props;
+		let { data } = await Axios.get(`http://localhost:3030/post/${post._id}/get-comments`);
+		commentList = data.data;
+		this.setState({
+			commentList,
+		});
+	};
 	render() {
 		let { isShowComments } = this.state;
+		let { post } = this.props;
 		return (
 			<PostCommentsWrapper>
 				<ShowButton onClick={this.handleToggleShowComments}>댓글 보기</ShowButton>
-				{isShowComments && <CommentCreate></CommentCreate>}
+				{isShowComments && <CommentCreate onChange={this.handleCommentReload} post={post}></CommentCreate>}
 				{isShowComments && <CommentList>{this.getComments()}</CommentList>}
 			</PostCommentsWrapper>
 		);

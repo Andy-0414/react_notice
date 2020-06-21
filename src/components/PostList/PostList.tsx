@@ -25,7 +25,6 @@ class PostList extends React.Component<Props> {
 	getPostItems() {
 		let { list } = this.props;
 		list.reverse();
-		console.log(list)
 		return list.map((item: IPost) => <PostItem item={item} key={item._id}></PostItem>);
 	}
 	render() {

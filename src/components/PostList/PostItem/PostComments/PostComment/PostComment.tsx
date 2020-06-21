@@ -14,4 +14,6 @@ class PostComment extends React.Component<{ item: IComment }> {
 }
 export default PostComment;
 
-const CommentWrapper = styled.li``;
+const CommentWrapper = styled.li`
+	padding: 10px;
+`;

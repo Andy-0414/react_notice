@@ -23,7 +23,6 @@ class PostCreate extends React.Component<Props, States> {
 	render() {
 		const { dispatchPostCreate, token } = this.props;
 		const { title, content } = this.state;
-
 		return (
 			<PostCreateWrap>
 				<TitleInput placeholder="제목" onChange={this.handleTitleInput}></TitleInput>

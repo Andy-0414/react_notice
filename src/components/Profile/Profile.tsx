@@ -23,7 +23,6 @@ class Profile extends React.Component<Props, States> {
 	render() {
 		const { dispatchRegister, dispatchLogin, user } = this.props;
 		let { id, password } = this.state;
-		console.log(user);
 		if (user?.userID) return <ProfileWrap>{user!.userID}님</ProfileWrap>;
 		else
 			return (

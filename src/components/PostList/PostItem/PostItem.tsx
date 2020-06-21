@@ -25,7 +25,7 @@ class PostItem extends React.Component<Props, {}> {
 				<Content>{item.content}</Content>
 				<ActionWrap>
 					{user!._id === item.owner!._id && <PostDelete onClick={() => dispatchDeletePost(token, item)}>글 삭제</PostDelete>}
-					<PostComments commentList={[]}></PostComments>
+					<PostComments post={item}></PostComments>
 				</ActionWrap>
 			</PostItemWrap>
 		);

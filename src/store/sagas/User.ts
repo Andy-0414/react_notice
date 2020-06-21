@@ -5,7 +5,6 @@ import { registerClear, userError, UserAction, REGISTER, LOGIN, loginClear } fro
 export function* registerSaga(action: UserAction) {
 	try {
 		const { data } = yield Axios.post(`http://localhost:3030/auth/user`, action.payload);
-		console.log(data);
 		yield put(registerClear(true));
 	} catch (err) {
 		yield put(userError(err));
