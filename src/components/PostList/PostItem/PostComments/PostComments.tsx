@@ -19,7 +19,7 @@ class PostComments extends React.Component<{ post: IPost }, States> {
 		// TODO: Redux 연동 (임시값)
 		let { commentList } = this.state;
 
-		return commentList.map((item) => <PostComment item={item} key={item._id}></PostComment>);
+		return commentList.map((item) => <PostComment onChange={this.handleCommentReload} item={item} key={item._id}></PostComment>);
 	}
 
 	handleToggleShowComments = async () => {

@@ -4,6 +4,5 @@
 
 # TODO
 
--   에러 시 alert 띄우기
--   댓글 구현하기
+-   storybook 사용해보기
 -   heroku에 업로드하기

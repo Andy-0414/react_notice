@@ -65,6 +65,8 @@ function Post(state: PostState = initialState, action: PostAction) {
 				...state,
 				postList: action.payload,
 			};
+		case POST_ERROR:
+			alert("ERROR");
 		default:
 			return state;
 	}

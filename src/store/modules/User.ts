@@ -50,6 +50,9 @@ function User(state: UserState = initialState, action: UserAction) {
 				token: action.payload.token,
 				loginData: action.payload.userData,
 			};
+			
+		case USER_ERROR:
+			alert("ERROR")
 		default:
 			return state;
 	}
