@@ -6,10 +6,17 @@ import { Dispatch } from "redux";
 import { RootState } from "../../../store";
 import IUser from "../../../schema/User";
 import { connect } from "react-redux";
+import { deletePost } from "../../../store/modules/Post";
 
-class PostItem extends React.Component<{ item: IPost; user: IUser }, {}> {
+interface Props {
+	item: IPost;
+	user: IUser;
+	token: string;
+	dispatchDeletePost(token: string, post: IPost): void;
+}
+class PostItem extends React.Component<Props, {}> {
 	render() {
-		let { item, user } = this.props;
+		let { item, user, token, dispatchDeletePost } = this.props;
 		return (
 			<PostItemWrap>
 				<Title>
@@ -17,7 +24,7 @@ class PostItem extends React.Component<{ item: IPost; user: IUser }, {}> {
 				</Title>
 				<Content>{item.content}</Content>
 				<ActionWrap>
-					{user!._id == item.owner!._id && <PostDelete>글 삭제</PostDelete>}
+					{user!._id === item.owner!._id && <PostDelete onClick={() => dispatchDeletePost(token, item)}>글 삭제</PostDelete>}
 					<PostComments commentList={[]}></PostComments>
 				</ActionWrap>
 			</PostItemWrap>
@@ -26,11 +33,15 @@ class PostItem extends React.Component<{ item: IPost; user: IUser }, {}> {
 }
 
 const mapStateToProps = (state: RootState) => {
-	const { loginData } = state.User;
-	return { user: loginData };
+	const { loginData, token } = state.User;
+	return { user: loginData, token };
 };
 const mapDispatchToProps = (dispatch: Dispatch) => {
-	return {};
+	return {
+		dispatchDeletePost: (token: string, post: IPost) => {
+			dispatch(deletePost(token, post));
+		},
+	};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(PostItem);
 

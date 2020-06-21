@@ -1,7 +1,6 @@
 import Axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 import { GET_POST_LIST, getPostListClear, createPostClear, deletePostClear, postError, DELETE_POST, CREATE_POST, PostAction, createPost, deletePost, getPostList } from "../modules/Post";
-import IPost from "../../schema/Post";
 
 export function* getPostListSaga() {
 	try {

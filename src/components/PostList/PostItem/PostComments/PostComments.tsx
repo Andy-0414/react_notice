@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PostComment from "./PostComment/PostComment";
 import IComment from "../../../../schema/Comment";
+import CommentCreate from "./CommentCreate/CommentCreate";
 
 class PostComments extends React.Component<{ commentList: IComment[] }, { isShowComments: boolean }> {
 	state = {
@@ -9,13 +10,7 @@ class PostComments extends React.Component<{ commentList: IComment[] }, { isShow
 	};
 	getComments() {
 		// TODO: Redux 연동 (임시값)
-		let list: IComment[] = [
-			{
-				_id: "c0",
-				content: "comment",
-				owner: {},
-			},
-		];
+		let list: IComment[] = [];
 
 		return list.map((item) => <PostComment item={item} key={item._id}></PostComment>);
 	}
@@ -32,6 +27,7 @@ class PostComments extends React.Component<{ commentList: IComment[] }, { isShow
 		return (
 			<PostCommentsWrapper>
 				<ShowButton onClick={this.handleToggleShowComments}>댓글 보기</ShowButton>
+				{isShowComments && <CommentCreate></CommentCreate>}
 				{isShowComments && <CommentList>{this.getComments()}</CommentList>}
 			</PostCommentsWrapper>
 		);

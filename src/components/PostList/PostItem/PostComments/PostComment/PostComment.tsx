@@ -5,7 +5,11 @@ import IComment from "../../../../../schema/Comment";
 class PostComment extends React.Component<{ item: IComment }> {
 	render() {
 		let { item } = this.props;
-		return <CommentWrapper>{item.content}</CommentWrapper>;
+		return (
+			<CommentWrapper>
+				{item.owner.userID}:{item.content}
+			</CommentWrapper>
+		);
 	}
 }
 export default PostComment;
