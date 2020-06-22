@@ -27,7 +27,7 @@ class PostComment extends React.Component<Props> {
 	}
 	handleDeleteComment = async () => {
 		let { onChange, item, token } = this.props;
-		await Axios.delete(`http://localhost:3030/comment/${item._id}`, {
+		await Axios.delete(`/comment/${item._id}`, {
 			headers: {
 				Authorization: token,
 			},

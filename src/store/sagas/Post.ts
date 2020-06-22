@@ -4,7 +4,7 @@ import { GET_POST_LIST, getPostListClear, createPostClear, deletePostClear, post
 
 export function* getPostListSaga() {
 	try {
-		const { data } = yield Axios.get(`http://localhost:3030/post`);
+		const { data } = yield Axios.get(`/post`);
 		yield put(getPostListClear(data.data));
 	} catch (err) {
 		yield put(postError(err));
@@ -18,7 +18,7 @@ export function* watchGetPostList() {
 export function* createPostSaga(action: PostAction) {
 	try {
 		const { post, token } = (action as ReturnType<typeof createPost>).payload;
-		const { data } = yield Axios.post(`http://localhost:3030/post`, post, {
+		const { data } = yield Axios.post(`/post`, post, {
 			headers: {
 				Authorization: token,
 			},
@@ -37,7 +37,7 @@ export function* watchCreatePost() {
 export function* deletePostSaga(action: PostAction) {
 	try {
 		const { post, token } = (action as ReturnType<typeof deletePost>).payload;
-		const { data } = yield Axios.delete(`http://localhost:3030/post/${post._id}`, {
+		const { data } = yield Axios.delete(`/post/${post._id}`, {
 			headers: {
 				Authorization: token,
 			},

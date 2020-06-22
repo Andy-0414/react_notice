@@ -34,7 +34,7 @@ class PostComments extends React.Component<{ post: IPost }, States> {
 	handleCommentReload = async () => {
 		let { commentList } = this.state;
 		let { post } = this.props;
-		let { data } = await Axios.get(`http://localhost:3030/post/${post._id}/get-comments`);
+		let { data } = await Axios.get(`/post/${post._id}/get-comments`);
 		commentList = data.data;
 		this.setState({
 			commentList,

@@ -40,7 +40,7 @@ class CommentCreate extends React.Component<Props, States> {
 		const { token, post, onChange } = this.props;
 		const { content } = this.state;
 		let { data } = await Axios.post(
-			`http://localhost:3030/comment/`,
+			`/comment`,
 			{ content, post: post._id },
 			{
 				headers: {

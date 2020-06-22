@@ -4,7 +4,7 @@ import { registerClear, userError, UserAction, REGISTER, LOGIN, loginClear } fro
 
 export function* registerSaga(action: UserAction) {
 	try {
-		const { data } = yield Axios.post(`http://localhost:3030/auth/user`, action.payload);
+		const { data } = yield Axios.post(`/auth/user`, action.payload);
 		yield put(registerClear(true));
 	} catch (err) {
 		yield put(userError(err));
@@ -17,10 +17,10 @@ export function* watchRegister() {
 
 export function* loginSaga(action: UserAction) {
 	try {
-		const { data } = yield Axios.post(`http://localhost:3030/auth/user/login`, action.payload);
+		const { data } = yield Axios.post(`/auth/user/login`, action.payload);
 		const token = data.data;
 		const { data: userData } = yield Axios.post(
-			`http://localhost:3030/auth/user/my`,
+			`/auth/user/my`,
 			{},
 			{
 				headers: {
