@@ -4,5 +4,4 @@
 
 # TODO
 
--   storybook 사용해보기
 -   heroku에 업로드하기
