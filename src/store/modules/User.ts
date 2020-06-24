@@ -44,7 +44,7 @@ const initialState: UserState = {
 
 function User(state: UserState = initialState, action: UserAction) {
 	switch (action.type) {
-		case LOGIN_CLEAR:
+		case LOGIN_CLEAR: // 로그인 성공 시 토큰이랑 로그인 정보 갱신
 			return {
 				...state,
 				token: action.payload.token,

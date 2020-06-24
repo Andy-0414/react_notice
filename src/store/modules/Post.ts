@@ -60,7 +60,7 @@ const initialState: PostState = {
 
 function Post(state: PostState = initialState, action: PostAction) {
 	switch (action.type) {
-		case GET_POST_LIST_CLEAR:
+		case GET_POST_LIST_CLEAR: // 글 가져오기 성공 시 글 리스트 갱신
 			return {
 				...state,
 				postList: action.payload,

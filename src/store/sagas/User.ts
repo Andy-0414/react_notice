@@ -2,6 +2,7 @@ import Axios from "axios";
 import { takeEvery, put } from "redux-saga/effects";
 import { registerClear, userError, UserAction, REGISTER, LOGIN, loginClear } from "../modules/User";
 
+// 회원가입
 export function* registerSaga(action: UserAction) {
 	try {
 		const { data } = yield Axios.post(`/auth/user`, action.payload);
@@ -15,6 +16,7 @@ export function* watchRegister() {
 	yield takeEvery(REGISTER, registerSaga);
 }
 
+// 로그인
 export function* loginSaga(action: UserAction) {
 	try {
 		const { data } = yield Axios.post(`/auth/user/login`, action.payload);
