@@ -16,25 +16,20 @@ interface States {
 }
 
 class PostCreate extends React.Component<Props, States> {
+	inputTitle: HTMLInputElement | null = null;
+	inputContent: HTMLTextAreaElement | null = null;
+
 	state = {
 		title: "",
 		content: "",
 	} as States;
 	render() {
-		const { dispatchPostCreate, token } = this.props;
-		const { title, content } = this.state;
 		return (
 			<PostCreateWrap>
-				<TitleInput placeholder="제목" onChange={this.handleTitleInput}></TitleInput>
-				<ContentInput placeholder="내용" onChange={this.handleContentInput}></ContentInput>
+				<TitleInput ref={(el) => (this.inputTitle = el)} placeholder="제목" onChange={this.handleTitleInput}></TitleInput>
+				<ContentInput ref={(el) => (this.inputContent = el)} placeholder="내용" onChange={this.handleContentInput}></ContentInput>
 				<ActionWrap>
-					<CreateButton
-						onClick={() => {
-							dispatchPostCreate(token, { title, content });
-						}}
-					>
-						글 쓰기
-					</CreateButton>
+					<CreateButton onClick={handleCreatePost}>글 쓰기</CreateButton>
 				</ActionWrap>
 			</PostCreateWrap>
 		);
@@ -50,6 +45,14 @@ class PostCreate extends React.Component<Props, States> {
 		this.setState({
 			content: value,
 		});
+	};
+	handleCreatePost = () => {
+		const { dispatchPostCreate, token } = this.props;
+		const { title, content } = this.state;
+		dispatchPostCreate(token, { title, content });
+
+		this.inputTitle!.value = "";
+		this.inputContent!.vaule = "";
 	};
 }
 

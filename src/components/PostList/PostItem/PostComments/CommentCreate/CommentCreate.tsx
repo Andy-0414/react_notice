@@ -16,6 +16,7 @@ interface States {
 }
 
 class CommentCreate extends React.Component<Props, States> {
+	inputElement: HTMLInputElement | null = null;
 	state = {
 		content: "",
 	} as States;
@@ -24,7 +25,7 @@ class CommentCreate extends React.Component<Props, States> {
 		if (token)
 			return (
 				<CommentCreateWrap>
-					<ContentInput placeholder="내용" onChange={this.handleContentInput}></ContentInput>
+					<ContentInput ref={(el) => (this.inputElement = el)} placeholder="내용" onChange={this.handleContentInput}></ContentInput>
 					<button onClick={this.handleCreatePost}>작성</button>
 				</CommentCreateWrap>
 			);
@@ -48,6 +49,7 @@ class CommentCreate extends React.Component<Props, States> {
 				},
 			}
 		);
+		this.inputElement!.value = "";
 		onChange();
 	};
 }
