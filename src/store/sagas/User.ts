@@ -5,7 +5,8 @@ import { registerClear, userError, UserAction, REGISTER, LOGIN, loginClear } fro
 // 회원가입
 export function* registerSaga(action: UserAction) {
 	try {
-		const { data } = yield Axios.post(`/auth/user`, action.payload);
+        const { data } = yield Axios.post(`/auth/user`, action.payload);
+        console.log(data);
 		yield put(registerClear(true));
 	} catch (err) {
 		yield put(userError(err));

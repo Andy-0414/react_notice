@@ -24,7 +24,8 @@ export function* createPostSaga(action: PostAction) {
 			headers: {
 				Authorization: token,
 			},
-		});
+        });
+        console.log(data)
 		yield put(getPostList());
 		yield put(createPostClear());
 	} catch (err) {
@@ -44,7 +45,8 @@ export function* deletePostSaga(action: PostAction) {
 			headers: {
 				Authorization: token,
 			},
-		});
+        });
+        console.log(data);
 		yield put(getPostList());
 		yield put(deletePostClear());
 	} catch (err) {

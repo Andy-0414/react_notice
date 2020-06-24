@@ -29,7 +29,7 @@ class PostCreate extends React.Component<Props, States> {
 				<TitleInput ref={(el) => (this.inputTitle = el)} placeholder="제목" onChange={this.handleTitleInput}></TitleInput>
 				<ContentInput ref={(el) => (this.inputContent = el)} placeholder="내용" onChange={this.handleContentInput}></ContentInput>
 				<ActionWrap>
-					<CreateButton onClick={handleCreatePost}>글 쓰기</CreateButton>
+					<CreateButton onClick={this.handleCreatePost}>글 쓰기</CreateButton>
 				</ActionWrap>
 			</PostCreateWrap>
 		);
@@ -52,7 +52,7 @@ class PostCreate extends React.Component<Props, States> {
 		dispatchPostCreate(token, { title, content });
 
 		this.inputTitle!.value = "";
-		this.inputContent!.vaule = "";
+		this.inputContent!.value = "";
 	};
 }
 
